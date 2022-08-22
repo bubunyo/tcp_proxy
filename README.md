@@ -10,13 +10,18 @@ import proxy "github.com/bubunyo/tcp_proxy"
 
 
 func main(){
-    p := proxy.New("localhost:6379") // proxy a redis server running on port 6379 on localhost.
+    // proxy a redis server running on port 6379 on localhost.
+    p := proxy.New("localhost:6379") 
 
-    rdb := redis.NewClient(&redis.Options{Addr: p.Addr()}) // use the proxy's new address
+    // use the proxy's new address
+    rdb := redis.NewClient(&redis.Options{Addr: p.Addr()})
 
-    if err:=rdb.Ping(context.Background()).Err(); err != nil {
+    // test new connection
+    err := rdb.Ping(context.Background()).Err()
+    if err != nil {
         log.Panic("redis connection not established")
     }
+}
 ```
 
 ## Todo
